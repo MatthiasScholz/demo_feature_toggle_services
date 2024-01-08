@@ -1,0 +1,31 @@
+---
+version: '3'
+
+services:
+
+  #caddy:
+  #  image: abiosoft/caddy:latest
+  #  ports:
+  #    - "9090:8080"  # port to proxy to flipt
+  #  networks:
+  #    - flipt_network
+  #  volumes:
+  #    - "./Caddyfile:/etc/Caddyfile"
+  #  environment:
+  #    - HTTP_USERNAME=admin
+  #b n    - HTTP_PASSWORD=password
+
+  flipt:
+    image: markphelps/flipt:latest
+    restart: unless-stopped
+    networks:
+      - net-flipt
+    # NOTE This should be omitted to use Caddy auth
+    ports:
+      - 9095:8080
+      - 9096:9000
+
+networks:
+  net-flipt:
+    name: net-flipt
+    external: false
